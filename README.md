@@ -11,7 +11,7 @@ Este será un organizador de inventario enfocado para personas foráneas que per
 * Los recordatorios sobre la cercana expiración del alimento son dados cuando el usuario pone la fecha de caducidad del alimento.
 
 ### Cambios Posibles
-Permitir al usuario meter el precio de cada producto para que el inventario también funciona como una lista de compras, juntándose con los recordatorios de qué tan próximo está por acabarse.
+Permitir al usuario meter el precio de cada producto para que el inventario también funcioné como una lista de compras, juntándose con los recordatorios de qué tan próximo está por acabarse.
 
 ---
 
