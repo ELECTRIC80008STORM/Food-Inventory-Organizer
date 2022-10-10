@@ -1,11 +1,15 @@
+from time import sleep
+
 class Alimento:
-    def __init__(self,nombre,caducidad,fecha_estimada):
-        self.nombre = str(nombre).capitalize()
+    def __init__(self,nombre,caducidad,fecha_estimada,categoria):
+        self.nombre = str(nombre).lower()
+        self.nombre = self.nombre.capitalize()
         self.caducidad = str(caducidad)
         self.fecha_estimada_a_acabarse = str(fecha_estimada)
+        self.categoria = str(categoria)
     
     def __str__(self):
-        return f"\nAlimento: {self.nombre}\nCaducará el {self.caducidad}\nSe acabará aproximadamente el { self.fecha_estimada_a_acabarse}"
+        return f"\nAlimento: {self.nombre}\nCaducará el {self.caducidad}\nSe acabará aproximadamente el {self.fecha_estimada_a_acabarse}\nSu categoría es: {self.categoria}"
 
 def caducidad_del_alimento():
     año = input("\nIntroduce el año de caducidad: ")
@@ -109,6 +113,47 @@ def fecha_estimada_a_acabarse():
     fecha_estimada = "{}/{}/{}"
     return fecha_estimada.format(dia,mes,año)
 
+categorias_predeterminadas = ["Verduras Y Hierbas Frescas", "Frutas", "Nueces, Semillas Y Graneles", "Lácteos Y Huevos", "Carne, Pollo Y Pescados", "Salchichoneria", "Despensa", "Botanas Y Snacks", "Congelados", "Dulces Y Chocolates", "Bebidas", "Cerveza, Vinos Y Licores\n"]
+categorias_creadas = []
+
+def categoria():
+    print("\nSeleccióne una categoría o cree una nueva escribiendo \"Crear\"\n")
+    sleep(2.5)
+    print("Categorías Predeterminadas:")
+    for categoria in categorias_predeterminadas:
+        print(categoria)
+    
+    sleep(3.5)
+   
+    if(len(categorias_creadas) != 0):
+        print("Categorías Creadas:")
+        for categoria in categorias_creadas:
+            print(categoria)
+        print("\n")
+    
+    respuesta = str(input()).lower()
+    
+    acum = 0
+    while(acum == 0):
+        for categoria in categorias_predeterminadas:
+            if(respuesta == categoria.lower()):
+                respuesta = respuesta.title()
+                acum = acum + 1
+                return respuesta
+        for categoria in categorias_creadas:
+            if(respuesta == categoria.lower()):
+                respuesta = respuesta.title()
+                acum = acum + 1
+                return respuesta
+        if(respuesta == "crear"):
+            categoria = str(input("\nAñada su Categoría: "))
+            categoria = categoria.title()
+            categorias_creadas.append(categoria)
+            acum = acum + 1
+            return categoria
+        print("\nNo entendí su respuesta. Por favor ingresala de nuevo:")
+        respuesta = str(input()).lower()
+
 def crearAlimento(lista):
     nombre_del_alimento = str(input("\nIngresa el alimento a listar: "))
     nombre_del_alimento = nombre_del_alimento.lower()
@@ -117,12 +162,13 @@ def crearAlimento(lista):
 
     fecha_estimada = fecha_estimada_a_acabarse()
 
-    nombre_del_alimento = Alimento(nombre_del_alimento,caducidad,fecha_estimada)
+    categoriaseleccionada = categoria()
+
+    nombre_del_alimento = Alimento(nombre_del_alimento,caducidad,fecha_estimada,categoriaseleccionada)
     lista.append(nombre_del_alimento)
-    print(nombre_del_alimento) #Solo para comprobar que funciona, quitar después
 
 def mostrar_alimentos(lista):
-    print("\nLos alimentos guardados son:")
+    print("\nSus alimentos actuales son:")
     for alimento in lista:
         print(alimento.nombre)
 
@@ -137,7 +183,7 @@ def buscar_alimento(lista):
             alimento = item
 
     if(acum > 0):
-        print("El alimento se encuentra guardado")
+        print("\nEl alimento se encuentra guardado")
         print(alimento)
     else:
         print("\nEl alimento no se encontró en la lista")
@@ -154,11 +200,11 @@ def editar_info_alimento(lista):
     if(acum <= 0): print("\nEl alimento no se encuentra en la lista")
     
     else:
-        print("\n¿Qué desea editar?","\n1. Caducidad","\n2. Fecha Estimada para Acabarse")
+        print("\n¿Qué desea editar?","\n1. Caducidad","\n2. Fecha Estimada para Acabarse","\n3. Categoría")
         print("Nota: Puede ingresar solo el número de la opción\n")
         respuesta = str(input())
         
-        while(respuesta != "1" and respuesta != "2" and respuesta.lower() != "caducidad" and respuesta.lower() != "fecha estimada para acabarse"):
+        while(respuesta != "1" and respuesta != "2" and respuesta != "3" and respuesta.lower() != "caducidad" and respuesta.lower() != "fecha estimada para acabarse" and respuesta.lower() != "categoría" and respuesta.lower() != "categoria"):
             print("\nNo entendí su respuesta. Por favor ingresala de nuevo")
             respuesta = str(input())
        
@@ -167,6 +213,9 @@ def editar_info_alimento(lista):
         
         elif(respuesta == "2" or respuesta.lower() == "fecha estimada para acabarse"):
             alimento.fecha_estimada_a_acabarse = fecha_estimada_a_acabarse()
+
+        elif(respuesta == "3" or respuesta.lower() == "categoría" or respuesta.lower() == "categoria"):
+            alimento.categoria = categoria()
 
 def borrar_alimento(lista):
     alimento = str(input("\n¿Qué alimento desea borrar?: ")).capitalize()
@@ -195,7 +244,7 @@ def borrar_alimento(lista):
 def salir_app():
     print("\nHa salido de la app. \nVuelva pronto!!!\n")
 
-def desea_continuar():
+def desea_continuar(lista):
     respuesta = str(input("\n¿Desea hacer algo más?: "))
     
     while(respuesta.lower() != "si" and respuesta.lower() != "sí" and respuesta.lower() != "no"):
@@ -203,7 +252,7 @@ def desea_continuar():
         respuesta = str(input())
     
     if(respuesta.lower() == "si" or respuesta.lower() == "sí"):
-        opciones()
+        opciones(lista)
     else:
         salir_app()
 
@@ -223,23 +272,26 @@ def opciones(lista):
         and respuesta.lower() != "buscar un alimento específico junto con su información"\
         and respuesta.lower() != "editar la información de algún alimento"\
         and respuesta.lower() != "borrar un alimento junto con su información" and respuesta.lower() != "salir de la app"):
-        print("\nNo entendí su respuesta. Por favor ingresala de nuevo")
+        print("\nNo entendí su respuesta. Por favor ingresala de nuevo:")
         respuesta = str(input())
 
     if(respuesta == "1" or respuesta.lower() == "añadir un alimento"):
-        crearAlimento()
-        desea_continuar()
+        crearAlimento(lista)
+        desea_continuar(lista)
     elif(respuesta == "2" or respuesta.lower() == "mostrar los alimentos actuales"):
         mostrar_alimentos(lista)
-        desea_continuar()
+        desea_continuar(lista)
     elif(respuesta == "3" or respuesta.lower() == "buscar un alimento específico junto con su información"):
         buscar_alimento(lista)
-        desea_continuar()
+        desea_continuar(lista)
     elif(respuesta == "4" or respuesta.lower() == "editar la información de algún alimento"):
         editar_info_alimento(lista)
-        desea_continuar()
+        desea_continuar(lista)
     elif(respuesta == "5" or respuesta.lower() == "borrar un alimento junto con su información"):
         borrar_alimento(lista)
-        desea_continuar()
+        desea_continuar(lista)
     elif(respuesta == "6" or respuesta.lower() == "salir de la app"):
         salir_app()
+
+alimentos = []
+opciones(alimentos)
