@@ -7,3 +7,11 @@ Este será un organizador de inventario enfocado para personas foráneas que per
 * La capacidad de etiquetar los alimentos en base a qué tan cercanos están de acabarse. (La información de duración aproximada tendrá que ser dada por el usuario para que la aplicación pueda recordarle previo a que se le acabe).  
 
 * El guardar la información acerca de la fecha de expiración de los productos del usuario para que sean accesados con mayor facilidad.
+
+## Módulos / Bibliotecas
+En este proyecto solo se utilizó el método “*sleep*” del módulo “*time*”. Este módulo ya se encuentra integrado en Python con el módulo estándar de utilidad. El único uso que se le dio a este método fue para generar pausas en el programa para que el usuario tuviera suficiente tiempo de leer el texto que se presentaba en la terminal.
+ 
+Estás dos páginas fueron de gran utilidad para comprender el funcionamiento del módulo y del método:
+ * https://www.geeksforgeeks.org/python-time-module/
+ 
+ * https://www.digitalocean.com/community/tutorials/python-time-sleep
