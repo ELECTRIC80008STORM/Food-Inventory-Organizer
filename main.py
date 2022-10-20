@@ -1,7 +1,8 @@
 """
 Food Inventory Organizer
 Organizador de Alimentos para la despensa.
-El objetivo del programa es ayudar a tener una mejor organización y control sobre nuestros alimentos, pudiendo tener en un solo lugar su fecha como caducidad, la categoría que le ponemos y cuando creemos que se puede acabar.
+El objetivo del programa es ayudar a tener una mejor organización y control sobre nuestros alimentos,
+pudiendo tener en un solo lugar su fecha como caducidad, la categoría que le ponemos y cuando creemos que se puede acabar.
 """
 
 #Biblioteca
