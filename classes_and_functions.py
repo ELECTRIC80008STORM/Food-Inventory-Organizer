@@ -93,7 +93,8 @@ def buscar_alimento(lista):
 
 def editar_info_alimento(lista):
     """
-    Checa si el alimento que se desea editar está guardado y da a elegir al usuario que desea editar, después guarda la nueva propiedad en el objeto seleccionado.
+    Checa si el alimento que se desea editar está guardado y da a elegir al usuario que desea editar,
+    después guarda la nueva propiedad en el objeto seleccionado.
     Parámetro:
     lista: list
     No regresa ningún valor.
@@ -217,7 +218,8 @@ def opciones(lista):
 #Funciones Auxiliares
 def caducidad_del_alimento():
     """
-    Produce una fecha en formato de string para la caducidad después de obtener el año, mes y día por el usuario, limitando el meter valores incorrectos.
+    Produce una fecha en formato de string para la caducidad después de obtener el año, mes y día por el usuario,
+    limitando el meter valores incorrectos.
     No poseé ningún parámetro.
     Devuelve “Día/Mes/Año”
     """
